@@ -20,14 +20,14 @@ public class PatientService {
         this.patientRepository = patientRepository;
     }
 
-    public void addNew(Patient patient){
+    public Patient addNew(Patient patient){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         patient.setCreationDate(timestamp.from(Instant.now()));
 
         logger.debug("Adding a new patient in database : "
                 + patient.getFirstName() + ", "
                 + patient.getLastName());
-        patientRepository.save(patient);
+        return patientRepository.save(patient);
     }
 
     public void update(Patient patient){
@@ -50,7 +50,7 @@ public class PatientService {
 
     public Patient findById(int patientId){
         logger.debug("Retrieving patient with id number : " + patientId);
-        return patientRepository.getById(patientId);
+        return patientRepository.findById(patientId).orElseThrow(() -> new IllegalArgumentException("Invalid patient Id " + patientId));
     }
 
     public void deleteById(int patientId){

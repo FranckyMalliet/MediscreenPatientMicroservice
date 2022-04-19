@@ -17,20 +17,16 @@ public class Patient {
     @Column(name="patient_id")
     private Integer patientId;
 
-    @NotBlank
     @Column(name="first_name")
     private String firstName;
 
-    @NotBlank
     @Column(name="last_name")
     private String lastName;
 
-    @NotNull
     @Column(name="birth_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
-    @NotNull
     @Column(name="gender")
     private String gender;
 

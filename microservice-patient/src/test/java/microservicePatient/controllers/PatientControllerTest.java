@@ -55,9 +55,8 @@ public class PatientControllerTest {
     }
 
     @Test
-    public void givenAPatient_AddItToDatabase() throws Exception {
+    public void givenAPatient_AddItToDatabase_ReturnAPageWithAllPatients() throws Exception {
         Patient patient = new Patient();
-        patient.setPatientId(10000);
         patient.setFirstName("Selene");
         patient.setLastName("Shadow");
 
@@ -66,7 +65,7 @@ public class PatientControllerTest {
         Date date = calendar.getTime();
         patient.setBirthDate(date);
 
-        patient.setGender("Female");
+        patient.setGender("F");
         patient.setAddress("15 London Street");
         patient.setPhone("0645656565");
         patient.setDangerLevel("None");
@@ -76,7 +75,7 @@ public class PatientControllerTest {
         Assertions.assertEquals("Selene", patientService.findById(patient.getPatientId()).getFirstName());
 
         mockMvc.perform(post("/patient/validate"))
-                .andExpect(status().isOk());
+                .andExpect(status().isFound());
 
         mockMvc.perform(get("/patient/list"))
                 .andExpect(status().isOk());
@@ -86,7 +85,6 @@ public class PatientControllerTest {
     @Test
     public void givenAnId_ReturnPathToAPageWithASpecificPatient() throws Exception {
         Patient patient = new Patient();
-        patient.setPatientId(10000);
         patient.setFirstName("Selene");
         patient.setLastName("Shadow");
 
@@ -95,7 +93,7 @@ public class PatientControllerTest {
         Date date = calendar.getTime();
         patient.setBirthDate(date);
 
-        patient.setGender("Female");
+        patient.setGender("F");
         patient.setAddress("15 London Street");
         patient.setPhone("0645656565");
         patient.setDangerLevel("None");
@@ -103,7 +101,7 @@ public class PatientControllerTest {
         patientService.addNew(patient);
         Assertions.assertNotNull(patientService.findById(patient.getPatientId()));
 
-        mockMvc.perform(get("/patient/update/{id}"))
+        mockMvc.perform(get("/patient/update/{id}", patient.getPatientId()))
                 .andExpect(status().isOk());
 
         patientService.deleteById(patient.getPatientId());
@@ -112,7 +110,6 @@ public class PatientControllerTest {
     @Test
     public void givenNewInformationToAPatient_UpdateItIntoTheDatabase_ReturnAPageWithAllPatients() throws Exception {
         Patient patient = new Patient();
-        patient.setPatientId(10000);
         patient.setFirstName("Selene");
         patient.setLastName("Shadow");
 
@@ -121,7 +118,7 @@ public class PatientControllerTest {
         Date date = calendar.getTime();
         patient.setBirthDate(date);
 
-        patient.setGender("Female");
+        patient.setGender("F");
         patient.setAddress("15 London Street");
         patient.setPhone("0645656565");
         patient.setDangerLevel("None");
@@ -141,7 +138,6 @@ public class PatientControllerTest {
     @Test
     public void givenAnId_DeleteAPatientInTheDatabase_ReturnAPageWithAllPatients() throws Exception {
         Patient patient = new Patient();
-        patient.setPatientId(10000);
         patient.setFirstName("Selene");
         patient.setLastName("Shadow");
 
@@ -150,7 +146,7 @@ public class PatientControllerTest {
         Date date = calendar.getTime();
         patient.setBirthDate(date);
 
-        patient.setGender("Female");
+        patient.setGender("F");
         patient.setAddress("15 London Street");
         patient.setPhone("0645656565");
         patient.setDangerLevel("None");
