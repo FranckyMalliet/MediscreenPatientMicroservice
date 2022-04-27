@@ -7,9 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -23,19 +21,19 @@ public class PatientController {
         this.patientService = patientService;
     }
 
-    @GetMapping("/patient/home")
+    @GetMapping("home")
     public String home(){
         return "home";
     }
 
-    @GetMapping("/patient/list")
-    public String userList(Model model){
+    @GetMapping("patient/list")
+    public String findPatientList(Model model){
         model.addAttribute("patients", patientService.findAll());
         return "patient/list";
     }
 
     @GetMapping("/patient/add")
-    public String addUser(Patient patient, Model model){
+    public String add(Patient patient, Model model){
         model.addAttribute("patient", patient);
         return "patient/add";
     }

@@ -82,6 +82,7 @@ public class PatientControllerTest {
 
         patientService.deleteById(patient.getPatientId());
     }
+
     @Test
     public void givenAnId_ReturnPathToAPageWithASpecificPatient() throws Exception {
         Patient patient = new Patient();
@@ -133,6 +134,8 @@ public class PatientControllerTest {
 
         mockMvc.perform(get("/patient/list"))
                 .andExpect(status().isOk());
+
+        patientService.deleteById(patient.getPatientId());
     }
 
     @Test

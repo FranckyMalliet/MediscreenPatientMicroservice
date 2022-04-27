@@ -3,8 +3,6 @@ package microservicePatient.models;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Date;
 

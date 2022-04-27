@@ -4,8 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>mediscreen</groupId>
-	<artifactId>microservice-patient</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>microservicePatient</artifactId>
 	<packaging>jar</packaging>
 
 	<name>microservice-patient</name>
@@ -150,5 +149,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

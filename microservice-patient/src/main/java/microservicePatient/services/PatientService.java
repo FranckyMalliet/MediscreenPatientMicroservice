@@ -57,4 +57,9 @@ public class PatientService {
         logger.debug("Deleting patient with id number : " + patientId);
         patientRepository.deleteById(patientId);
     }
+
+    public Patient findByLastName(String lastName){
+        logger.info("Retrieving patient with last name : " + lastName);
+        return patientRepository.findByLastName(lastName);
+    }
 }
