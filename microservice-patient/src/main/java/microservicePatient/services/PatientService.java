@@ -20,6 +20,13 @@ public class PatientService {
         this.patientRepository = patientRepository;
     }
 
+    /**
+     * Typical Create method from CRUD except that it create
+     * a timestamp when a Patient is saved using the application
+     * @param patient
+     * @return a Patient
+     */
+
     public Patient addNew(Patient patient){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         patient.setCreationDate(timestamp.from(Instant.now()));
@@ -29,6 +36,13 @@ public class PatientService {
                 + patient.getLastName());
         return patientRepository.save(patient);
     }
+
+    /**
+     * Typical Update method from CRUD except that it create
+     * a timestamp when a Patient is updated using the application
+     * @param patient
+     * @return a Patient
+     */
 
     public void update(Patient patient){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -53,13 +67,13 @@ public class PatientService {
         return patientRepository.findById(patientId).orElseThrow(() -> new IllegalArgumentException("Invalid patient Id " + patientId));
     }
 
-    public void deleteById(int patientId){
-        logger.debug("Deleting patient with id number : " + patientId);
-        patientRepository.deleteById(patientId);
-    }
-
     public Patient findByLastName(String lastName){
         logger.info("Retrieving patient with last name : " + lastName);
         return patientRepository.findByLastName(lastName);
+    }
+
+    public void deleteById(int patientId){
+        logger.debug("Deleting patient with id number : " + patientId);
+        patientRepository.deleteById(patientId);
     }
 }
