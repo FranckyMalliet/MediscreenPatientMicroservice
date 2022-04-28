@@ -21,11 +21,6 @@ public class PatientController {
         this.patientService = patientService;
     }
 
-    @GetMapping("home")
-    public String home(){
-        return "home";
-    }
-
     @GetMapping("patient/list")
     public String findPatientList(Model model){
         model.addAttribute("patients", patientService.findAll());

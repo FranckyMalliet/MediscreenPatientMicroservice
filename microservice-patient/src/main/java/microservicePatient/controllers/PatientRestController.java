@@ -18,16 +18,16 @@ public class PatientRestController {
     }
 
     @GetMapping("/patient/assess/list")
-    public List<Patient> getPatientList(){
+    public List<Patient> findAll(){
         return patientService.findAll();
     }
 
-    @GetMapping("patient/assess/id")
+    @GetMapping("patient/assess/patientId")
     public Patient findById(@RequestParam("id") int patientId){
         return patientService.findById(patientId);
     }
 
-    @GetMapping("patient/assess/lastName")
+    @GetMapping("patient/assess/patientLastName")
     public Patient findByLastName(@RequestParam("lastName") String lastName){
         return patientService.findByLastName(lastName);
     }
