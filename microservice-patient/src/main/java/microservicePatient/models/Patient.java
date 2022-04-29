@@ -3,7 +3,6 @@ package microservicePatient.models;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -36,12 +35,6 @@ public class Patient {
 
     @Column(name="danger_level")
     private String dangerLevel;
-
-    @Column(name="creation_date")
-    private Timestamp creationDate;
-
-    @Column(name="revision_date")
-    private Timestamp revisionDate;
 
     public Integer getPatientId() {
         return patientId;
@@ -105,21 +98,5 @@ public class Patient {
 
     public void setDangerLevel(String dangerLevel) {
         this.dangerLevel = dangerLevel;
-    }
-
-    public Timestamp getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Timestamp creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public Timestamp getRevisionDate() {
-        return revisionDate;
-    }
-
-    public void setRevisionDate(Timestamp revisionDate) {
-        this.revisionDate = revisionDate;
     }
 }

@@ -6,8 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -28,9 +26,6 @@ public class PatientService {
      */
 
     public Patient addNew(Patient patient){
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        patient.setCreationDate(timestamp.from(Instant.now()));
-
         logger.debug("Adding a new patient in database : "
                 + patient.getFirstName() + ", "
                 + patient.getLastName());
@@ -45,9 +40,6 @@ public class PatientService {
      */
 
     public void update(Patient patient){
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        patient.setRevisionDate(timestamp.from(Instant.now()));
-
         logger.debug("Updating patient : " + patient.getFirstName() + ", "
                 + patient.getLastName() + ", "
                 + patient.getBirthDate() + ", "
@@ -69,7 +61,7 @@ public class PatientService {
 
     public Patient findByLastName(String lastName){
         logger.info("Retrieving patient with last name : " + lastName);
-        return patientRepository.findByLastName(lastName);
+        return patientRepository.findByLastName(lastName).orElseThrow(() -> new IllegalArgumentException("Invalid patient lastName " + lastName));
     }
 
     public void deleteById(int patientId){

@@ -37,12 +37,6 @@ public class PatientControllerTest {
     }
 
     @Test
-    public void givenAnUrl_ReturnAHomeOfThisMicroservice() throws Exception {
-        mockMvc.perform(get("/patient/home"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
     public void givenAnUrl_ReturnAPageWithAllPatients() throws Exception {
         mockMvc.perform(get("/patient/list"))
                 .andExpect(status().isOk());
@@ -130,7 +124,6 @@ public class PatientControllerTest {
         patient.setLastName("Harkonnen");
         patientService.update(patient);
         Assertions.assertEquals("Harkonnen", patientService.findById(patient.getPatientId()).getLastName());
-        Assertions.assertNotNull(patientService.findById(patient.getPatientId()).getRevisionDate());
 
         mockMvc.perform(get("/patient/list"))
                 .andExpect(status().isOk());
