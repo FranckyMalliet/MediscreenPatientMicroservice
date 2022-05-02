@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PatientService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">microservice-patient</a> &gt; <a href="index.source.html" class="el_package">microservicePatient.services</a> &gt; <span class="el_source">PatientService.java</span></div><h1>PatientService.java</h1><pre class="source lang-java linenums">package microservicePatient.services;
+
+import microservicePatient.models.Patient;
+import microservicePatient.repositories.PatientRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class PatientService {
+
+<span class="fc" id="L14">    private final static Logger logger = LoggerFactory.getLogger(PatientService.class);</span>
+    private PatientRepository patientRepository;
+
+<span class="fc" id="L17">    public PatientService(PatientRepository patientRepository){</span>
+<span class="fc" id="L18">        this.patientRepository = patientRepository;</span>
+<span class="fc" id="L19">    }</span>
+
+    /**
+     * Typical Create method from CRUD except that it create
+     * a timestamp when a Patient is saved using the application
+     * @param patient
+     * @return a Patient
+     */
+
+    public Patient addNew(Patient patient){
+<span class="fc" id="L29">        logger.debug(&quot;Adding a new patient in database : &quot;</span>
+<span class="fc" id="L30">                + patient.getFirstName() + &quot;, &quot;</span>
+<span class="fc" id="L31">                + patient.getLastName());</span>
+<span class="fc" id="L32">        return patientRepository.save(patient);</span>
+    }
+
+    /**
+     * Typical Update method from CRUD except that it create
+     * a timestamp when a Patient is updated using the application
+     * @param patient
+     * @return a Patient
+     */
+
+    public void update(Patient patient){
+<span class="fc" id="L43">        logger.debug(&quot;Updating patient : &quot; + patient.getFirstName() + &quot;, &quot;</span>
+<span class="fc" id="L44">                + patient.getLastName() + &quot;, &quot;</span>
+<span class="fc" id="L45">                + patient.getBirthDate() + &quot;, &quot;</span>
+<span class="fc" id="L46">                + patient.getGender() + &quot;, &quot;</span>
+<span class="fc" id="L47">                + patient.getAddress() + &quot;, &quot;</span>
+<span class="fc" id="L48">                + patient.getPhone());</span>
+<span class="fc" id="L49">        patientRepository.save(patient);</span>
+<span class="fc" id="L50">    }</span>
+
+    public List&lt;Patient&gt; findAll(){
+<span class="fc" id="L53">        logger.debug(&quot;Retrieving all patients from database&quot;);</span>
+<span class="fc" id="L54">        return patientRepository.findAll();</span>
+    }
+
+    public Patient findById(int patientId){
+<span class="fc" id="L58">        logger.debug(&quot;Retrieving patient with id number : &quot; + patientId);</span>
+<span class="fc" id="L59">        return patientRepository.findById(patientId).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid patient Id &quot; + patientId));</span>
+    }
+
+    public Patient findByLastName(String lastName){
+<span class="fc" id="L63">        logger.info(&quot;Retrieving patient with last name : &quot; + lastName);</span>
+<span class="pc" id="L64">        return patientRepository.findByLastName(lastName).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid patient lastName &quot; + lastName));</span>
+    }
+
+    public void deleteById(int patientId){
+<span class="fc" id="L68">        logger.debug(&quot;Deleting patient with id number : &quot; + patientId);</span>
+<span class="fc" id="L69">        patientRepository.deleteById(patientId);</span>
+<span class="fc" id="L70">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

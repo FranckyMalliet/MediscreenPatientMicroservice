@@ -1,5 +1,6 @@
 package microservicePatient.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import microservicePatient.models.Patient;
 import microservicePatient.services.PatientService;
 import org.junit.Assert;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -15,8 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.Calendar;
 import java.util.Date;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -30,6 +31,9 @@ public class PatientControllerTest {
 
     @Autowired
     private PatientService patientService;
+
+    @Autowired
+    private PatientController patientController;
 
     @BeforeEach
     public void setupMockMvc(){
@@ -104,6 +108,7 @@ public class PatientControllerTest {
 
     @Test
     public void givenNewInformationToAPatient_UpdateItIntoTheDatabase_ReturnAPageWithAllPatients() throws Exception {
+
         Patient patient = new Patient();
         patient.setFirstName("Selene");
         patient.setLastName("Shadow");
@@ -122,6 +127,7 @@ public class PatientControllerTest {
         Assertions.assertNotNull(patientService.findById(patient.getPatientId()));
 
         patient.setLastName("Harkonnen");
+
         patientService.update(patient);
         Assertions.assertEquals("Harkonnen", patientService.findById(patient.getPatientId()).getLastName());
 
@@ -150,7 +156,9 @@ public class PatientControllerTest {
         patientService.addNew(patient);
         Assertions.assertNotNull(patientService.findById(patient.getPatientId()));
 
-        patientService.deleteById(patient.getPatientId());
+        mockMvc.perform(get("/patient/delete/{id}", patient.getPatientId()))
+                .andExpect(status().isFound());
+
         Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> patientService.findById(patient.getPatientId()));
         Assert.assertEquals("Invalid patient Id " + patient.getPatientId(), exception.getMessage());
 
