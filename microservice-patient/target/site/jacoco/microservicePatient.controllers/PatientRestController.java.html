@@ -2,9 +2,7 @@
 
 import microservicePatient.models.Patient;
 import microservicePatient.services.PatientService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,23 +11,28 @@ public class PatientRestController {
 
     private PatientService patientService;
 
-<span class="fc" id="L16">    public PatientRestController(PatientService patientService){</span>
-<span class="fc" id="L17">        this.patientService = patientService;</span>
-<span class="fc" id="L18">    }</span>
+<span class="fc" id="L14">    public PatientRestController(PatientService patientService){</span>
+<span class="fc" id="L15">        this.patientService = patientService;</span>
+<span class="fc" id="L16">    }</span>
 
     @GetMapping(&quot;/patient/assess/list&quot;)
     public List&lt;Patient&gt; findAll(){
-<span class="fc" id="L22">        return patientService.findAll();</span>
+<span class="fc" id="L20">        return patientService.findAll();</span>
     }
 
-    @GetMapping(&quot;patient/assess/patientId&quot;)
+    @GetMapping(&quot;/patient/assess/patientId&quot;)
     public Patient findById(@RequestParam(&quot;id&quot;) int patientId){
-<span class="fc" id="L27">        return patientService.findById(patientId);</span>
+<span class="fc" id="L25">        return patientService.findById(patientId);</span>
     }
 
-    @GetMapping(&quot;patient/assess/patientLastName&quot;)
+    @GetMapping(&quot;/patient/assess/patientLastName&quot;)
     public Patient findByLastName(@RequestParam(&quot;lastName&quot;) String lastName){
-<span class="fc" id="L32">        return patientService.findByLastName(lastName);</span>
+<span class="fc" id="L30">        return patientService.findByLastName(lastName);</span>
     }
+
+    @PostMapping(&quot;/patient/assess/update&quot;)
+    public void updatePatientDangerLevel(@RequestBody Patient patient){
+<span class="fc" id="L35">        patientService.update(patient);</span>
+<span class="fc" id="L36">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

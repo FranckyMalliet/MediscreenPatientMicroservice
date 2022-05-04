@@ -56,17 +56,17 @@ public class PatientController {
 
     @PostMapping(&quot;/patient/update/{id}&quot;)
     public String update(@PathVariable(&quot;id&quot;) Integer patientId, @Valid Patient patient, Model model, BindingResult result){
-<span class="nc bnc" id="L59" title="All 2 branches missed.">        if(result.hasErrors()){</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if(result.hasErrors()){</span>
 <span class="nc" id="L60">            logger.debug(&quot;Patient not found or incorrect&quot;);</span>
 <span class="nc" id="L61">            return &quot;patient/update&quot;;</span>
         }
 
-<span class="nc" id="L64">        patient.setPatientId(patientId);</span>
-<span class="nc" id="L65">        patientService.update(patient);</span>
+<span class="fc" id="L64">        patient.setPatientId(patientId);</span>
+<span class="fc" id="L65">        patientService.update(patient);</span>
 
-<span class="nc" id="L67">        logger.info(&quot;Updating patient number &quot; + patientId);</span>
-<span class="nc" id="L68">        model.addAttribute(&quot;patients&quot;, patientService.findAll());</span>
-<span class="nc" id="L69">        return &quot;redirect:/patient/list&quot;;</span>
+<span class="fc" id="L67">        logger.info(&quot;Updating patient number &quot; + patientId);</span>
+<span class="fc" id="L68">        model.addAttribute(&quot;patients&quot;, patientService.findAll());</span>
+<span class="fc" id="L69">        return &quot;redirect:/patient/list&quot;;</span>
     }
 
     @GetMapping(&quot;/patient/delete/{id}&quot;)

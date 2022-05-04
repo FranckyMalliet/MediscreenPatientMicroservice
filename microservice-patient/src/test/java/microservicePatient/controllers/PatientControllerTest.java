@@ -1,6 +1,8 @@
 package microservicePatient.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import microservicePatient.models.Patient;
 import microservicePatient.services.PatientService;
 import org.junit.Assert;
@@ -127,6 +129,16 @@ public class PatientControllerTest {
         Assertions.assertNotNull(patientService.findById(patient.getPatientId()));
 
         patient.setLastName("Harkonnen");
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter objectWriter = mapper.writer().withDefaultPrettyPrinter();
+        String jsonRequest = objectWriter.writeValueAsString(patient);
+
+        mockMvc.perform(post("/patient/update/{id}", patient.getPatientId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonRequest))
+                .andExpect(status().isFound());
 
         patientService.update(patient);
         Assertions.assertEquals("Harkonnen", patientService.findById(patient.getPatientId()).getLastName());
