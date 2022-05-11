@@ -24,6 +24,7 @@
 							<th>Gender</th>
 							<th>Address</th>
 							<th>Phone</th>
+							<th>Danger Level</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -35,6 +36,7 @@
 							<td th:text="${Patient.gender}"></td>
 							<td th:text="${Patient.address}"></td>
 							<td th:text="${Patient.phone}"></td>
+							<td th:text="${Patient.dangerLevel}"></td>
 							<td style="width 15%" class="text-center">
 								<a th:href="@{/patient/update/{id}(id=${Patient.patientId})}">Edit</a>
 								<a th:href="@{/patient/delete/{id}(id=${Patient.patientId})}">Delete</a>

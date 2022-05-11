@@ -56,7 +56,13 @@
 							<p class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
 						</div>
 					</div>
-
+					<div class="form-group">
+						<label for="dangerLevel" class="col-sm-2 control-label">Danger Level</label>
+						<div class="col-sm-10">
+							<input type="text" th:field="*{dangerLevel}" id="dangerLevel" placeholder="danger level" class="col-4">
+							<p class="text-danger" th:if="${#fields.hasErrors('dangerLevel')}" th:errors="*{dangerLevel}"></p>
+						</div>
+					</div>
 
 					<div class="form-group">
 						<div class="col-sm-12">
